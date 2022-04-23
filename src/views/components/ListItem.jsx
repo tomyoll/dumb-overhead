@@ -1,15 +1,15 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import { Button, Grid, Stack, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography, Container } from "@mui/material";
 import { Link } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 function ListItem({ title, time, id, answersCount, user, author, removeQuestion }) {
   return (
-    <Box
+    <Container
       sx={{
         width: "70%",
-        height: "10rem",
+        //height: "10rem",
         backgroundColor: "rgb(85, 28, 132)"
       }}>
       <Grid container direction="row" wrap="nowrap">
@@ -37,12 +37,14 @@ function ListItem({ title, time, id, answersCount, user, author, removeQuestion 
                 Remove
               </Button>
             )}
-            <Typography variant="h3">{answersCount}</Typography>
+            <Typography textOverflow="hidden" variant="h3">
+              {answersCount}
+            </Typography>
             <Typography>Answers</Typography>
           </Stack>
         </Grid>
       </Grid>
-    </Box>
+    </Container>
   );
 }
 
