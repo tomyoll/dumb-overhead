@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { Button, CircularProgress, Stack, Collapse, Container } from "@mui/material";
+import { Button, CircularProgress, Stack, Collapse, Container, Typography } from "@mui/material";
 import ListItem from "./ListItem";
 import api from "../../api";
 import QuestionEditor from "./QuestionEditor";
@@ -9,7 +9,7 @@ import { userSelector } from "../../store/RecoilState";
 import logoFull from "../../assets/logo-full.png";
 
 function QuestionsList() {
-  console.log(process.env.REACT_APP_API_URL)
+  console.log(process.env.REACT_APP_API_URL);
   const [user] = useRecoilState(userSelector);
   const [questions, setQuestions] = useState([]);
   const [open, setOpen] = useState(false);
@@ -118,18 +118,25 @@ function QuestionsList() {
                 <Button onClick={() => handleClickOpen()} variant={"outlined"}>
                   Ask question
                 </Button>
-                {questions.map((item) => (
-                  <ListItem
-                    user={user}
-                    key={item._id}
-                    author={item.author}
-                    title={item.title}
-                    answersCount={item.answers.length}
-                    removeQuestion={removeQuestion}
-                    time={new Date(item.createdAt).toDateString()}
-                    id={item._id}
-                  />
-                ))}
+                {questions.length ? (
+                  questions.map((item) => (
+                    <ListItem
+                      user={user}
+                      key={item._id}
+                      author={item.author}
+                      title={item.title}
+                      answersCount={item.answers.length}
+                      removeQuestion={removeQuestion}
+                      time={new Date(item.createdAt).toDateString()}
+                      id={item._id}
+                    />
+                  ))
+                ) : (
+                  <>
+                    <img src={logoFull} alt="Logo" />
+                    <Typography>No questions yet, be the first!</Typography>
+                  </>
+                )}
               </Stack>
             </>
           )}
