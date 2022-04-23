@@ -6,8 +6,10 @@ import QuestionEditor from "./QuestionEditor";
 import Alert from "@mui/material/Alert";
 import { useRecoilState } from "recoil";
 import { userSelector } from "../../store/RecoilState";
+import logoFull from "../../assets/logo-full.png";
 
 function QuestionsList() {
+  console.log(process.env.REACT_APP_API_URL)
   const [user] = useRecoilState(userSelector);
   const [questions, setQuestions] = useState([]);
   const [open, setOpen] = useState(false);
@@ -91,9 +93,13 @@ function QuestionsList() {
                     severity="error">
                     {hasError.message}
                   </Alert>
-                  <Button onClick={async () => fetchQuestions()} sx={{ mt: 2 }} variant="outlined">
+                  <Button
+                    onClick={async () => fetchQuestions()}
+                    sx={{ mt: 2, mb: 4 }}
+                    variant="outlined">
                     Try again
                   </Button>
+                  <img src={logoFull} alt="Logo" />
                 </Stack>
               </Container>
             </Collapse>

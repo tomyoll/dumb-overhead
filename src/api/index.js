@@ -40,7 +40,7 @@ class Api {
     try {
       const response = await axios({
         method,
-        url: `${process.env.REACT_APP_API_RUL + path}`,
+        url: `${process.env.REACT_APP_API_URL}${path}`,
         params,
         data,
         headers,
