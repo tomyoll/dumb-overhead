@@ -40,7 +40,7 @@ class Api {
     try {
       const response = await axios({
         method,
-        url: `http://localhost:4000${path}`,
+        url: `${process.env.REACT_APP_API_RUL + path}`,
         params,
         data,
         headers,
