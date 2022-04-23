@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { REQUEST_RESPONSES } from "../constants";
 class Api {
   constructor() {
     this.loginUrl = "/login";
@@ -31,10 +31,10 @@ class Api {
   }) {
     const headers = {};
 
-    const token = localStorage.getItem("access");
+    const token = localStorage.getItem("token");
 
     if (token) {
-      headers.jwt = `Bearer ${token}`;
+      headers.Authorization = `Bearer ${token}`;
     }
 
     try {
@@ -57,11 +57,18 @@ class Api {
 
       return null;
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         window.location.href = this.loginUrl;
       }
 
-      return { error: error.response.data.error };
+      if (error.response) {
+        throw { error: error.response.data.error };
+      }
+
+      if (error.request) {
+        throw { error: REQUEST_RESPONSES.NO_RESPONSE };
+      }
+      throw { error: error.message };
     }
   }
 }

@@ -1,28 +1,43 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import { Grid, Stack, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-function ListItem({ title, time }) {
+function ListItem({ title, time, id, answersCount, user, author, removeQuestion }) {
   return (
     <Box
       sx={{
         width: "70%",
         height: "10rem",
-        backgroundColor: "blueviolet"
+        backgroundColor: "rgb(85, 28, 132)"
       }}>
       <Grid container direction="row" wrap="nowrap">
         <Grid item xs={11}>
           <Box>
-            <Stack justifyContent="center" spacing={3} ml={3} mt={7}>
-              <Typography variant="h5">{title}</Typography>
+            <Stack justifyContent="center" spacing={2} ml={3} mt={2}>
+              <Typography sx={{ fontStyle: "italic" }} variant="h5">
+                {author.userName}
+              </Typography>
+              <Typography
+                sx={{ textDecoration: "none", color: "inherit" }}
+                component={Link}
+                to={`/question/${id}`}
+                variant="h5">
+                {title}
+              </Typography>
               <Typography variant="h8">{time}</Typography>
             </Stack>
           </Box>
         </Grid>
-        <Grid item xs mt={6}>
+        <Grid item xs mt={3}>
           <Stack justifyContent="center" alignItems="center">
-            <Typography variant="h3">1</Typography>
+            {user.role !== 0 ? null : (
+              <Button onClick={async () => removeQuestion(id)} variant="outlined" color="warning">
+                Remove
+              </Button>
+            )}
+            <Typography variant="h3">{answersCount}</Typography>
             <Typography>Answers</Typography>
           </Stack>
         </Grid>
