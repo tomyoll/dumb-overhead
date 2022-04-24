@@ -5,12 +5,12 @@ import api from "../../api";
 import QuestionEditor from "./QuestionEditor";
 import Alert from "@mui/material/Alert";
 import { useRecoilState } from "recoil";
-import { userSelector } from "../../store/RecoilState";
+import { accessTokenSelector, userSelector } from "../../store/RecoilState";
 import logoFull from "../../assets/logo-full.png";
 
 function QuestionsList() {
-  console.log(process.env.REACT_APP_API_URL);
   const [user] = useRecoilState(userSelector);
+  const [accessToken] = useRecoilState(accessTokenSelector);
   const [questions, setQuestions] = useState([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -115,9 +115,11 @@ function QuestionsList() {
                 />
               ) : null}
               <Stack spacing={2} justifyContent="center" alignItems="center" mt={10}>
-                <Button onClick={() => handleClickOpen()} variant={"outlined"}>
-                  Ask question
-                </Button>
+                {accessToken ? (
+                  <Button onClick={() => handleClickOpen()} variant={"outlined"}>
+                    Ask question
+                  </Button>
+                ) : null}
                 {questions.length ? (
                   questions.map((item) => (
                     <ListItem
