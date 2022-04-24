@@ -2,9 +2,12 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { Button, Grid, Stack, Typography, Container } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { accessTokenSelector } from "../../store/RecoilState";
 
 // eslint-disable-next-line react/prop-types
 function ListItem({ title, time, id, answersCount, user, author, removeQuestion }) {
+  const [accessToken] = useRecoilState(accessTokenSelector);
   return (
     <Container
       sx={{
@@ -32,7 +35,7 @@ function ListItem({ title, time, id, answersCount, user, author, removeQuestion 
         </Grid>
         <Grid item xs mt={3}>
           <Stack justifyContent="center" alignItems="center">
-            {user.role !== 0 ? null : (
+            {user.role !== 1 && !accessToken ? null : (
               <Button onClick={async () => removeQuestion(id)} variant="outlined" color="warning">
                 Remove
               </Button>
