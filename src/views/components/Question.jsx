@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 import AnswerEditor from "./AnswerEditor";
 import api from "../../api";
 import { useParams } from "react-router-dom";
-import { accessTokenSelector } from "../../store/RecoilState";
+import { accessTokenSelector, userSelector } from "../../store/RecoilState";
 import { useRecoilState } from "recoil";
 import { LightAsync as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -17,6 +17,7 @@ export default function Question() {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
   const [save, setSave] = useState(false);
+  const [user] = useRecoilState(userSelector);
   const [token] = useRecoilState(accessTokenSelector);
   const params = useParams();
 
@@ -33,6 +34,11 @@ export default function Question() {
 
   async function handleSave() {
     await api.post({ path: "/question/answer", data: { payload: text, question: question._id } });
+  }
+
+  async function handleRemove(answerId, questionId) {
+    await api.put({ path: "/question/answer/", data: { answerId, questionId } });
+    setSave(true);
   }
 
   const handleClose = () => {
@@ -119,6 +125,15 @@ export default function Question() {
                             );
                           }
                         }}></ReactMarkdown>
+                      {user.role !== 1 && !token ? null : (
+                        <Button
+                          sx={{ maxWidth: 240 }}
+                          onClick={async () => handleRemove(answer._id, question._id)}
+                          variant="outlined"
+                          color="error">
+                          Remove this answer
+                        </Button>
+                      )}
                     </Stack>
                   );
                 })}

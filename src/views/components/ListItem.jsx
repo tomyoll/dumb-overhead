@@ -5,14 +5,12 @@ import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { accessTokenSelector } from "../../store/RecoilState";
 
-// eslint-disable-next-line react/prop-types
 function ListItem({ title, time, id, answersCount, user, author, removeQuestion }) {
   const [accessToken] = useRecoilState(accessTokenSelector);
   return (
     <Container
       sx={{
         width: "70%",
-        //height: "10rem",
         backgroundColor: "rgb(85, 28, 132)"
       }}>
       <Grid container direction="row" wrap="nowrap">
