@@ -6,7 +6,7 @@ import QuestionEditor from "./QuestionEditor";
 import Alert from "@mui/material/Alert";
 import { useRecoilState } from "recoil";
 import { accessTokenSelector, userSelector } from "../../store/RecoilState";
-import logoFull from "../../assets/logo-full.png";
+import logo from "../../assets/logo.png";
 
 function QuestionsList() {
   const [user] = useRecoilState(userSelector);
@@ -99,7 +99,7 @@ function QuestionsList() {
                     variant="outlined">
                     Try again
                   </Button>
-                  <img src={logoFull} alt="Logo" />
+                  <img src={logo} alt="Logo" />
                 </Stack>
               </Container>
             </Collapse>
