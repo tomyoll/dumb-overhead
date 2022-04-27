@@ -33,7 +33,7 @@ function ListItem({ title, time, id, answersCount, user, author, removeQuestion 
         </Grid>
         <Grid item xs mt={3}>
           <Stack justifyContent="center" alignItems="center">
-            {user.role !== 1 && !accessToken ? null : (
+            {user.role !== 0 && !accessToken ? null : (
               <Button onClick={async () => removeQuestion(id)} variant="outlined" color="warning">
                 Remove
               </Button>
