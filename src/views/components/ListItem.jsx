@@ -7,6 +7,7 @@ import { accessTokenSelector } from "../../store/RecoilState";
 
 function ListItem({ title, time, id, answersCount, user, author, removeQuestion }) {
   const [accessToken] = useRecoilState(accessTokenSelector);
+  console.log(user);
   return (
     <Container
       sx={{
@@ -33,7 +34,7 @@ function ListItem({ title, time, id, answersCount, user, author, removeQuestion 
         </Grid>
         <Grid item xs mt={3}>
           <Stack justifyContent="center" alignItems="center">
-            {user.role !== 0 && !accessToken ? null : (
+            {user.role !== 0 || !accessToken ? null : (
               <Button onClick={async () => removeQuestion(id)} variant="outlined" color="warning">
                 Remove
               </Button>

@@ -125,7 +125,7 @@ export default function Question() {
                             );
                           }
                         }}></ReactMarkdown>
-                      {user.role !== 0 && !token ? null : (
+                      {user.role !== 0 || !token ? null : (
                         <Button
                           sx={{ maxWidth: 240 }}
                           onClick={async () => handleRemove(answer._id, question._id)}
