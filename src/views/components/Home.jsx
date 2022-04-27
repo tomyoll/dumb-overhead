@@ -135,7 +135,7 @@ function QuestionsList() {
                   ))
                 ) : (
                   <>
-                    <img src={logoFull} alt="Logo" />
+                    <img src={logo} alt="Logo" />
                     <Typography>No questions yet, be the first!</Typography>
                   </>
                 )}
